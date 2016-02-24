@@ -42,10 +42,6 @@ wss.on("connection", function(ws) {
   var hid = hat();
   var state = {};
 
-  var id = setInterval(function() {
-    ws.send(JSON.stringify(new Date()), function() {  })
-  }, 1000)
-
   console.log("websocket connection open")
 
   ws.on("message", function(message) {
@@ -54,6 +50,5 @@ wss.on("connection", function(ws) {
 
   ws.on("close", function() {
     console.log("websocket connection close")
-    clearInterval(id)
   })
 })

@@ -4,14 +4,14 @@ export function connected() {
 	return {type: types.CONNECTED}
 }
 
-export function requestMove() { 
-	return {type: types.REQUEST_MOVE }
+export function requestMove(id, index) { 
+	return {type: types.REQUEST_MOVE, id, index}
 }
 
 export function requestDeal() { 
-	return {type: types.REQUEST_DEAL }
+	return {type: types.REQUEST_DEAL}
 }
 
-export function join() { 
-	return {type: types.JOIN }
+export function join(game) { 
+	return {type: types.JOIN, game}
 }

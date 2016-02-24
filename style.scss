@@ -1,3 +1,22 @@
 body {
 	font-family: monospace;
 }
+
+.card {
+	display: inline-block;
+	vertical-align: top;
+	width: 150px;
+	height: 200px;
+	border: 1px solid #555;
+	margin: 5px;
+	border-radius: 5px;
+	padding: 5px;
+	position: relative;
+}
+
+
+.when {
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+}
