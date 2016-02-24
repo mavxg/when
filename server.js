@@ -28,12 +28,29 @@ server.listen(port, function(error) {
 var wss = new WebSocketServer({server: server})
 console.log("websocket server created")
 
+function makeHat() {
+	var hat = 0;
+	return function() {
+		hat = hat + 1;
+		return hat;
+	}
+}
+
+var hat = makeHat();
+
 wss.on("connection", function(ws) {
+  var hid = hat();
+  var state = {};
+
   var id = setInterval(function() {
     ws.send(JSON.stringify(new Date()), function() {  })
   }, 1000)
 
   console.log("websocket connection open")
+
+  ws.on("message", function(message) {
+  	console.log('recieved %s: %s',hid,message);
+  })
 
   ws.on("close", function() {
     console.log("websocket connection close")

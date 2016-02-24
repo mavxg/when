@@ -1,0 +1,7 @@
+export const CONNECTED = 'CONNECTED'
+export const REQUEST_MOVE = 'REQUEST_MOVE'
+export const REQUEST_DEAL = 'REQUEST_DEAL'
+export const MOVE = 'MOVE'
+export const DEAL = 'DEAL'
+export const JOIN = 'JOIN'
+export const JOINED = 'JOINED'

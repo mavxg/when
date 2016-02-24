@@ -4,10 +4,11 @@ import { connect } from 'react-redux'
 
 class App extends Component {
   render() {
-    const { todos, actions } = this.props
+    const { deck, actions } = this.props
     return (
       <div>
-        <p>Draw stuff here</p>
+        <p>Draw stuff here and what if</p>
+        <p>{deck.connected ? 'Connected' : 'Not connected'}</p>
       </div>
     )
   }
