@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import update from 'react/lib/update';
+import { findDOMNode } from 'react-dom';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { DragSource, DropTarget, DragDropContext } from 'react-dnd';
@@ -43,10 +44,32 @@ const cardTarget = {
   	const { card } = monitor.getItem();
   	const { card: over } = props;
 
-  	if (over.id !== card.id) {
-  		const atIndex = props.findCard(over);
-  		props.moveCard(card, atIndex);
+  	if (over.id === card.id) return;
+
+  	const dragIndex = props.findCard(card);
+
+  	const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
+  	const hoverMiddleX = (hoverBoundingRect.right - hoverBoundingRect.left) / 2;
+  	const clientOffset = monitor.getClientOffset();
+  	const hoverClientX = clientOffset.x - hoverBoundingRect.left;
+  	const hoverIndex = props.findCard(over);
+
+  	if (dragIndex == -1) {
+  		const atIndex = (hoverClientX > hoverMiddleX) ? hoverIndex + 1 : hoverIndex;
+  		props.moveCard(card, atIndex)
+  		return
   	}
+
+  	if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX) {
+      return;
+    }
+
+    // Dragging upwards
+    if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
+      return;
+    }
+
+  	props.moveCard(card, hoverIndex);
   }
 }
 
@@ -89,12 +112,13 @@ class Timeline extends Component {
 	}
 
 	moveCard(card, atIndex) {
-		const index = this.findCard(card.id);
-    	this.setState(update(this.state, {
+		const index = this.findCard(card);
+		const ns = update(this.state, {
      		 cards: {
        			 $splice: (index >= 0) ? [[index, 1],[atIndex, 0, card]] : [[atIndex, 0, card]]
       		}
-   		}));
+   		})
+    	this.setState(ns);
 	}
 
 	componentWillReceiveProps(nextProps) {
