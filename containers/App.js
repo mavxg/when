@@ -5,7 +5,8 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { DragSource, DropTarget, DragDropContext } from 'react-dnd';
 import * as ItemTypes from '../constants/ItemTypes'
-import HTML5Backend from 'react-dnd-html5-backend';
+import HTML5Backend from 'react-dnd-html5-backend'
+import classNames from 'classnames'
 
 
 var cardSource = {
@@ -33,7 +34,7 @@ class Card extends Component {
 		const { card, playable } = this.props;
 		const { connectDragSource, isDragging } = this.props
 		return connectDragSource(
-			<div className="card">{card.text}</div>
+			<div className={classNames('card',{dragging: isDragging})}>{card.text}</div>
 		)
 	}
 }

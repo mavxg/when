@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/mavxg/when#readme",
   "dependencies": {
+    "classnames": "^2.2.3",
     "express": "^4.13.4",
     "react": "^0.14.7",
     "react-dnd": "^2.1.2",
